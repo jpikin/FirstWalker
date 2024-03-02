@@ -1,6 +1,7 @@
 package program;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -11,15 +12,15 @@ public class WalkerSettings extends JFrame {
 
     WalkerSettings(){
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-        setTitle("Settings");
-        setVisible(false);
-
+        setLocationRelativeTo(null);
         add(tempButton);
         tempButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e)
+            {
                 setVisible(false);
             }
         });
+        setVisible(true);
     }
 }

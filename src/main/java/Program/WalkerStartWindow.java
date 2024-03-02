@@ -1,30 +1,25 @@
 package program;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.IOException;
 
 public class WalkerStartWindow extends JFrame {
-    private static final int WINDOW_HEIGHT = 900;
-    private static final int WINDOW_WIDTH = 1440;
-//    private static final int WINDOW_POSX = 800;
-//    private static final int WINDOW_POSY = 300;
+
     JButton btnStart = new JButton("Start walking");
     JButton btnSettings = new JButton("Settings");
     JButton btnExit = new JButton("Exit");
-    Container container;
+    JPanel container;
     WalkingWindow walkingWindow;
     WalkerSettings settings;
 
 
     WalkerStartWindow() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-        setTitle("Walker");
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setUndecorated(true);
         setVisible(true);
 
         JPanel btnPanel = new JPanel(new GridLayout(3, 1));
@@ -40,21 +35,18 @@ public class WalkerStartWindow extends JFrame {
         container.add(btnPanel);
         add(container);
 
-        createWalkingWindow();
-        createSettingsWindow();
-
-
         btnStart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setVisible(false);
-                walkingWindow.setVisible(true);
+                add(new PlayWindow());
+                container.setVisible(false);
             }
         });
         btnSettings.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                settings.setVisible(true);
+                settings = new WalkerSettings();
+
             }
         });
         btnExit.addActionListener(new ActionListener() {
@@ -63,24 +55,5 @@ public class WalkerStartWindow extends JFrame {
                 System.exit(0);
             }
         });
-    }
-
-    /**
-     * Создаем окно настроек.
-     */
-    private void createSettingsWindow() {
-        settings = new WalkerSettings();
-    }
-
-    /**
-     * Создаем основное окно игры.
-     */
-    private void createWalkingWindow() {
-        walkingWindow = new WalkingWindow();
-        try {
-            walkingWindow.setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("./src/main/java/sprites/grassBkg.png")))));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }
