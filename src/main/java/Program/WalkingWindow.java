@@ -1,4 +1,4 @@
-package Program;
+package program;
 
 import javax.swing.*;
 
@@ -10,5 +10,6 @@ public class WalkingWindow extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setTitle("Walking");
+
     }
 }

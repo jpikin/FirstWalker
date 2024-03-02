@@ -1,9 +1,12 @@
-package Program;
+package program;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 public class WalkerStartWindow extends JFrame {
     private static final int WINDOW_HEIGHT = 900;
@@ -16,6 +19,7 @@ public class WalkerStartWindow extends JFrame {
     Container container;
     WalkingWindow walkingWindow;
     WalkerSettings settings;
+
 
     WalkerStartWindow() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -36,8 +40,9 @@ public class WalkerStartWindow extends JFrame {
         container.add(btnPanel);
         add(container);
 
-        walkingWindow = new WalkingWindow();
-        settings = new WalkerSettings();
+        createWalkingWindow();
+        createSettingsWindow();
+
 
         btnStart.addActionListener(new ActionListener() {
             @Override
@@ -58,5 +63,24 @@ public class WalkerStartWindow extends JFrame {
                 System.exit(0);
             }
         });
+    }
+
+    /**
+     * Создаем окно настроек.
+     */
+    private void createSettingsWindow() {
+        settings = new WalkerSettings();
+    }
+
+    /**
+     * Создаем основное окно игры.
+     */
+    private void createWalkingWindow() {
+        walkingWindow = new WalkingWindow();
+        try {
+            walkingWindow.setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("./src/main/java/sprites/grassBkg.png")))));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
